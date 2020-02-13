@@ -3,9 +3,11 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
+
 class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
+
     def __init__(self):
         self.vertices = {}
 
@@ -13,26 +15,51 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        if self.vertices[vertex_id] is None:
+            self.vertices[vertex_id] = set()
+        else:
+            return f'This vertice already exists.'
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1, v2 in self.vertices:
+            self.vertices[v1].add(v2)
+            self.vertices[v2].add(v1)
+        else:
+            return f'Either {v1} or {v2} does not exist in the vertices.'
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Create a queue
+        queue = Queue()
+        # Put the starting point in that
+        queue.enqueue(starting_vertex)
+        # Make a set to keep track of everything traveersed.
+        visited = set()
+        # No duplicates can appear in sets. Makes this powerful.
+
+        # Loop for as long as the queue has something in it
+        while queue.size() > 0:
+            # Remove first item
+            vertex = queue.dequeue()
+            # If not visited (that is, since sets can't have duplicates... if we've already been there)
+            if vertex not in visited:
+                visited.add(vertex)
+                # For each edge in the item
+                for next_vertex in self.get_neighbors(vertex):
+                    # Add that edge to the queue/stack
+                    queue.enqueue(next_vert)
 
     def dft(self, starting_vertex):
         """
@@ -75,6 +102,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
